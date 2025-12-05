@@ -27,7 +27,7 @@ public class ValidationMessageCatalogTests
         // Assert
         Assert.Equal("入力値が正しく検証されました。", message.Text);
         Assert.Equal(ValidationMessageCategory.Validation, message.Category);
-        Assert.Equal(ValidationMessageServity.Information, message.Servity);
+        Assert.Equal(ValidationMessageSeverity.Information, message.Severity);
         Assert.Equal("検証成功時のメッセージ", message.Description);
     }
 

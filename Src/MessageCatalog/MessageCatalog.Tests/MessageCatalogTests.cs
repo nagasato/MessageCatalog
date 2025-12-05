@@ -29,7 +29,7 @@ public class MessageCatalogTests
         // Assert
         Assert.Equal("テストメッセージ1", message.Text);
         Assert.Equal(DefaultMessageCategory.Test, message.Category);
-        Assert.Equal(DefaultMessageServity.Information, message.Servity);
+        Assert.Equal(DefaultMessageSeverity.Information, message.Severity);
         Assert.Equal("テスト用メッセージ1", message.Description);
     }
 
@@ -45,7 +45,7 @@ public class MessageCatalogTests
         // Assert
         Assert.Equal("パラメーター 'テスト値' のテスト", formatted);
         Assert.Equal(DefaultMessageCategory.Test, message.Category);
-        Assert.Equal(DefaultMessageServity.Warning, message.Servity);
+        Assert.Equal(DefaultMessageSeverity.Warning, message.Severity);
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class MessageCatalogTests
         // Assert
         Assert.Equal("エラーテスト", message.Text);
         Assert.Equal(DefaultMessageCategory.Test, message.Category);
-        Assert.Equal(DefaultMessageServity.Error, message.Servity);
+        Assert.Equal(DefaultMessageSeverity.Error, message.Severity);
         Assert.Equal(string.Empty, message.Description);
     }
 
@@ -88,10 +88,10 @@ public class MessageCatalogTests
     }
 
     [Theory]
-    [InlineData("TEST001", DefaultMessageServity.Information)]
-    [InlineData("TEST002", DefaultMessageServity.Warning)]
-    [InlineData("TEST003", DefaultMessageServity.Error)]
-    public void Messages_ShouldHaveCorrectServity(string messageId, DefaultMessageServity expectedServity)
+    [InlineData("TEST001", DefaultMessageSeverity.Information)]
+    [InlineData("TEST002", DefaultMessageSeverity.Warning)]
+    [InlineData("TEST003", DefaultMessageSeverity.Error)]
+    public void Messages_ShouldHaveCorrectSeverity(string messageId, DefaultMessageSeverity expectedSeverity)
     {
         // Arrange & Act
         var message = messageId switch
@@ -103,6 +103,6 @@ public class MessageCatalogTests
         };
 
         // Assert
-        Assert.Equal(expectedServity, message.Servity);
+        Assert.Equal(expectedSeverity, message.Severity);
     }
 }

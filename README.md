@@ -81,7 +81,7 @@ Console.WriteLine(messageCatalog.INFO002.Format("James"));
 
 // メタデータにアクセス
 Console.WriteLine($"Category: {messageCatalog.ERR001.Category}");
-Console.WriteLine($"Severity: {messageCatalog.ERR001.Servity}");
+Console.WriteLine($"Severity: {messageCatalog.ERR001.Severity}");
 Console.WriteLine($"Description: {messageCatalog.ERR001.Description}");
 ```
 
@@ -160,12 +160,12 @@ var message = messageCatalog.ERR001;
 Console.WriteLine($"ID: ERR001");
 Console.WriteLine($"Text: {message.Text}");
 Console.WriteLine($"Category: {message.Category}");      // 出力: Input
-Console.WriteLine($"Severity: {message.Servity}");       // 出力: Error
+Console.WriteLine($"Severity: {message.Severity}");       // 出力: Error
 Console.WriteLine($"Description: {message.Description}"); // 出力: 入力エラー時のメッセージ
 
 // Severityに基づいた条件分岐
-if (message.Servity == DefaultMessageServity.Error || 
-    message.Servity == DefaultMessageServity.Fatal)
+if (message.Severity == DefaultMessageSeverity.Error || 
+    message.Severity == DefaultMessageSeverity.Fatal)
 {
     // エラーログに出力
     Console.Error.WriteLine(message.Format("invalid input"));
@@ -275,7 +275,7 @@ public class DefaultMessageItem
 {
     public string Text { get; }
     public DefaultMessageCategory Category { get; }
-    public DefaultMessageServity Servity { get; }
+    public DefaultMessageSeverity Severity { get; }
     public string Description { get; }
     
     public string Format(params object[] args);
@@ -288,7 +288,7 @@ TSVファイルで使用されているCategory/Severityの値から自動的に
 
 ```csharp
 public enum DefaultMessageCategory { None, User, File, Input, System, ... }
-public enum DefaultMessageServity { None, Information, Warning, Error, Fatal, ... }
+public enum DefaultMessageSeverity { None, Information, Warning, Error, Fatal, ... }
 ```
 
 ## 対応環境
@@ -296,4 +296,5 @@ public enum DefaultMessageServity { None, Information, Warning, Error, Fatal, ..
 - .NET 8.0 以降
 - .NET Framework 4.8
 - .NET Standard 2.0（Source Generator自体）
+
 
