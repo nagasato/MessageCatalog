@@ -1,21 +1,22 @@
 # MessageCatalog
 
-TSVファイルからタイプセーフなメッセージカタログを自動生成するC# Source Generatorです。
+A C# Source Generator that automatically generates type-safe message catalogs from TSV files.
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nagasato/MessageCatalog)
 
+[日本語版 README](README_ja.md)
 
-## 特徴
+## Features
 
-- **タイプセーフ**: TSVファイルで定義したメッセージIDがプロパティとして生成され、コンパイル時にチェックされます
-- **IntelliSense対応**: XMLドキュメントコメントが自動生成され、IDEでメッセージ内容を確認できます
-- **複数カタログ対応**: 複数のTSVファイルから異なるメッセージカタログを生成可能
-- **実行時テキスト上書き**: 実行時にTSVファイルを読み込んでメッセージテキストを上書き可能
-- **.NET Framework / .NET対応**: .NET Framework 4.8 および .NET 8 の両方で動作
+- **Type-safe**: Message IDs defined in TSV files are generated as properties and checked at compile time
+- **IntelliSense support**: XML documentation comments are auto-generated, allowing you to view message content in your IDE
+- **Multiple catalog support**: Generate different message catalogs from multiple TSV files
+- **Runtime text override**: Load TSV files at runtime to override message text
+- **.NET Framework / .NET support**: Works with both .NET Framework 4.8 and .NET 8
 
-## インストール
+## Installation
 
-### プロジェクト参照
+### Project Reference
 
 ```xml
 <ItemGroup>
@@ -25,37 +26,37 @@ TSVファイルからタイプセーフなメッセージカタログを自動�
 </ItemGroup>
 ```
 
-## 使い方
+## Usage
 
-### 1. TSVファイルを作成
+### 1. Create a TSV File
 
-プロジェクトに `messages.tsv` ファイルを作成します：
+Create a `messages.tsv` file in your project:
 
 ```tsv
 Id	Text	Category	Severity	Description
-INFO001	処理が正常に完了しました。	None	Information	
-INFO002	ユーザー '{0}' の登録が完了しました。	User	Information	ユーザー登録時の成功メッセージ
-WARN001	ファイル '{0}' が見つかりません。	File	Warning	ファイル読込時のエラーメッセージ
-ERR001	入力値が不正です: {0}	Input	Error	入力エラー時のメッセージ
-FATAL001	システムエラーが発生しました。エラーコード: {0}	System	Fatal	回復不能エラーのメッセージ
+INFO001	Process completed successfully.	None	Information	
+INFO002	User '{0}' has been registered.	User	Information	Success message for user registration
+WARN001	File '{0}' not found.	File	Warning	Error message when reading file
+ERR001	Invalid input: {0}	Input	Error	Message for input errors
+FATAL001	System error occurred. Error code: {0}	System	Fatal	Message for unrecoverable errors
 ```
 
 <details>
-<summary>テーブル形式で表示</summary>
+<summary>View as table</summary>
 
 | Id | Text | Category | Severity | Description |
 |----|------|----------|----------|-------------|
-| INFO001 | 処理が正常に完了しました。 | None | Information | |
-| INFO002 | ユーザー '{0}' の登録が完了しました。 | User | Information | ユーザー登録時の成功メッセージ |
-| WARN001 | ファイル '{0}' が見つかりません。 | File | Warning | ファイル読込時のエラーメッセージ |
-| ERR001 | 入力値が不正です: {0} | Input | Error | 入力エラー時のメッセージ |
-| FATAL001 | システムエラーが発生しました。エラーコード: {0} | System | Fatal | 回復不能エラーのメッセージ |
+| INFO001 | Process completed successfully. | None | Information | |
+| INFO002 | User '{0}' has been registered. | User | Information | Success message for user registration |
+| WARN001 | File '{0}' not found. | File | Warning | Error message when reading file |
+| ERR001 | Invalid input: {0} | Input | Error | Message for input errors |
+| FATAL001 | System error occurred. Error code: {0} | System | Fatal | Message for unrecoverable errors |
 
 </details>
 
-### 2. プロジェクトファイルを設定
+### 2. Configure Project File
 
-TSVファイルをAdditionalFilesとして追加します：
+Add the TSV file as AdditionalFiles:
 
 ```xml
 <ItemGroup>
@@ -63,44 +64,44 @@ TSVファイルをAdditionalFilesとして追加します：
 </ItemGroup>
 ```
 
-### 3. コードで使用
+### 3. Use in Code
 
 ```csharp
 using MessageCatalog.Core;
 
-// メッセージカタログをインスタンス化
+// Instantiate the message catalog
 var messageCatalog = new DefaultMessageCatalog();
 
-// メッセージを使用
+// Use messages
 Console.WriteLine(messageCatalog.INFO001.Text);
-// 出力: 処理が正常に完了しました。
+// Output: Process completed successfully.
 
-// フォーマット付きメッセージ
+// Format messages with placeholders
 Console.WriteLine(messageCatalog.INFO002.Format("James"));
-// 出力: ユーザー 'James' の登録が完了しました。
+// Output: User 'James' has been registered.
 
-// メタデータにアクセス
+// Access metadata
 Console.WriteLine($"Category: {messageCatalog.ERR001.Category}");
 Console.WriteLine($"Severity: {messageCatalog.ERR001.Severity}");
 Console.WriteLine($"Description: {messageCatalog.ERR001.Description}");
 ```
 
-## TSVファイル形式
+## TSV File Format
 
-| カラム | 必須 | 説明 |
-|--------|------|------|
-| Id | :heavy_check_mark: | メッセージの一意識別子（プロパティ名になります） |
-| Text | :heavy_check_mark: | メッセージテキスト（`{0}`, `{1}` などのプレースホルダー使用可） |
-| Category | | メッセージのカテゴリ（enum として生成されます） |
-| Severity | | メッセージの重要度（enum として生成されます） |
-| Description | | 開発者向けの説明（XMLドキュメントに含まれます） |
+| Column | Required | Description |
+|--------|----------|-------------|
+| Id | :heavy_check_mark: | Unique identifier for the message (becomes property name) |
+| Text | :heavy_check_mark: | Message text (can use `{0}`, `{1}` placeholders) |
+| Category | | Message category (generated as enum) |
+| Severity | | Message severity (generated as enum) |
+| Description | | Developer description (included in XML documentation) |
 
-## 複数のメッセージカタログ
+## Multiple Message Catalogs
 
-ファイル名を `Prefix_messages.tsv` の形式にすると、別のカタログクラスが生成されます：
+Using the filename format `Prefix_messages.tsv` generates a separate catalog class:
 
-| ファイル名 | 生成されるクラス |
-|------------|------------------|
+| Filename | Generated Classes |
+|----------|-------------------|
 | `messages.tsv` | `DefaultMessageCatalog`, `DefaultMessageItem` |
 | `Validation_messages.tsv` | `ValidationMessageCatalog`, `ValidationMessageItem` |
 | `Error_messages.tsv` | `ErrorMessageCatalog`, `ErrorMessageItem` |
@@ -113,71 +114,87 @@ Console.WriteLine(defaultCatalog.INFO001.Text);
 Console.WriteLine(validationCatalog.VALID001.Text);
 ```
 
-## 実行時テキスト上書き
+## Runtime Text Override
 
-コンストラクタにTSVファイルのパスを指定することで、実行時にメッセージテキストを上書きできます。これにより、再コンパイルなしでメッセージを変更できます。
+You can override message text at runtime by specifying a TSV file path in the constructor. This allows you to change messages without recompiling.
 
 ```csharp
-// 実行時にTSVファイルからテキストを読み込む
+// Load text from TSV file at runtime
 var catalog = new DefaultMessageCatalog("custom_messages.tsv");
 ```
 
-## 詳細な使用例
+### Localization Example
 
-### 基本的な使い方
+You can use this feature for localization by providing language-specific TSV files:
+
+```csharp
+// Default messages (English)
+var catalog = new DefaultMessageCatalog();
+Console.WriteLine(catalog.INFO001.Text);
+// Output: Process completed successfully.
+
+// Override with Japanese messages at runtime
+var japaneseCatalog = new DefaultMessageCatalog("messages_ja.tsv");
+Console.WriteLine(japaneseCatalog.INFO001.Text);
+// Output: 処理が正常に完了しました。
+```
+
+## Detailed Usage Examples
+
+### Basic Usage
 
 ```csharp
 using MessageCatalog.Core;
 
-// メッセージカタログをインスタンス化
+// Instantiate the message catalog
 var messageCatalog = new DefaultMessageCatalog();
 
-// シンプルなメッセージの取得
+// Get simple messages
 Console.WriteLine(messageCatalog.INFO001.Text);
-// 出力: 処理が正常に完了しました。
+// Output: Process completed successfully.
 
-// プレースホルダー付きメッセージのフォーマット
+// Format messages with placeholders
 Console.WriteLine(messageCatalog.INFO002.Format("James"));
-// 出力: ユーザー 'James' の登録が完了しました。
+// Output: User 'James' has been registered.
 
 Console.WriteLine(messageCatalog.WARN001.Format("config.json"));
-// 出力: ファイル 'config.json' が見つかりません。
+// Output: File 'config.json' not found.
 
-Console.WriteLine(messageCatalog.ERR001.Format("無効な値"));
-// 出力: 入力値が不正です: 無効な値
+Console.WriteLine(messageCatalog.ERR001.Format("invalid value"));
+// Output: Invalid input: invalid value
 
 Console.WriteLine(messageCatalog.FATAL001.Format("E-005-01"));
-// 出力: システムエラーが発生しました。エラーコード: E-005-01
+// Output: System error occurred. Error code: E-005-01
 ```
 
-### メタデータの活用
+### Using Metadata
 
 ```csharp
 var messageCatalog = new DefaultMessageCatalog();
 var message = messageCatalog.ERR001;
 
-// メッセージのメタデータにアクセス
+// Access message metadata
 Console.WriteLine($"ID: ERR001");
 Console.WriteLine($"Text: {message.Text}");
-Console.WriteLine($"Category: {message.Category}");      // 出力: Input
-Console.WriteLine($"Severity: {message.Severity}");       // 出力: Error
-Console.WriteLine($"Description: {message.Description}"); // 出力: 入力エラー時のメッセージ
+Console.WriteLine($"Category: {message.Category}");      // Output: Input
+Console.WriteLine($"Severity: {message.Severity}");       // Output: Error
+Console.WriteLine($"Description: {message.Description}"); // Output: Message for input errors
 
-// Severityに基づいた条件分岐
+// Conditional branching based on Severity
 if (message.Severity == DefaultMessageSeverity.Error || 
     message.Severity == DefaultMessageSeverity.Fatal)
 {
-    // エラーログに出力
+    // Output to error log
     Console.Error.WriteLine(message.Format("invalid input"));
 }
 ```
 
-### 複数カタログの併用
+### Using Multiple Catalogs
 
 ```csharp
 using MessageCatalog.Core;
 
-// 複数のメッセージカタログを使用
+// Use multiple message catalogs
 var messageCatalog = new DefaultMessageCatalog();
 var validationCatalog = new ValidationMessageCatalog();
 
@@ -192,17 +209,17 @@ Console.WriteLine();
 
 Console.WriteLine("=== ValidationMessageCatalog ===");
 Console.WriteLine($"{validationCatalog.VALID001.Text}");
-Console.WriteLine($"{validationCatalog.VALID002.Format("ユーザー名")}");
-Console.WriteLine($"{validationCatalog.VALID003.Format("メールアドレス")}");
+Console.WriteLine($"{validationCatalog.VALID002.Format("username")}");
+Console.WriteLine($"{validationCatalog.VALID003.Format("email")}");
 ```
 
-### DIコンテナとの統合
+### DI Container Integration
 
 ```csharp
 using MessageCatalog.Core;
 using Microsoft.Extensions.DependencyInjection;
 
-// サービスの登録
+// Register services
 var services = new ServiceCollection();
 services.AddSingleton<DefaultMessageCatalog>();
 services.AddSingleton<ValidationMessageCatalog>();
@@ -212,7 +229,7 @@ var provider = services.BuildServiceProvider();
 var app = provider.GetRequiredService<Application>();
 app.Run();
 
-// アプリケーションクラス
+// Application class
 public class Application
 {
     private readonly DefaultMessageCatalog _messageCatalog;
@@ -234,7 +251,7 @@ public class Application
 }
 ```
 
-### ログ出力との連携
+### Logging Integration
 
 ```csharp
 using MessageCatalog.Core;
@@ -253,7 +270,7 @@ public class OrderService
 
     public void ProcessOrder(string orderId)
     {
-        // Severityに応じたログレベルで出力
+        // Output with log level based on Severity
         var infoMessage = _messages.INFO001;
         _logger.LogInformation("{Message}", infoMessage.Text);
 
@@ -266,9 +283,9 @@ public class OrderService
 }
 ```
 
-## 生成されるコード
+## Generated Code
 
-### メッセージアイテムクラス
+### Message Item Class
 
 ```csharp
 public class DefaultMessageItem
@@ -282,19 +299,18 @@ public class DefaultMessageItem
 }
 ```
 
-### カテゴリとSeverityのEnum
+### Category and Severity Enums
 
-TSVファイルで使用されているCategory/Severityの値から自動的にenumが生成されます：
+Enums are automatically generated from the Category/Severity values used in the TSV file:
 
 ```csharp
 public enum DefaultMessageCategory { None, User, File, Input, System, ... }
 public enum DefaultMessageSeverity { None, Information, Warning, Error, Fatal, ... }
 ```
 
-## 対応環境
+## Supported Environments
 
-- .NET 8.0 以降
+- .NET 8.0 or later
 - .NET Framework 4.8
-- .NET Standard 2.0（Source Generator自体）
-
+- .NET Standard 2.0 (Source Generator itself)
 

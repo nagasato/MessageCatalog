@@ -26,14 +26,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MessageCatalog.SourceGenerator\MessageCatalog.SourceGenerator.csproj" 
-                      ReferenceOutputAssembly="false" 
-                      OutputItemType="Analyzer" />
+    <ProjectReference Include="..\MessageCatalog.SourceGenerator\MessageCatalog.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="TestData\messages.tsv" />
     <AdditionalFiles Include="TestData\Validation_messages.tsv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\messages_ja.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Validation_messages_ja.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

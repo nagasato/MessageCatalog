@@ -1,0 +1,4 @@
+Id	Text	Category	Severity	Description
+VALID001	入力値が正しく検証されました。	Validation	Information	検証成功時のメッセージ
+VALID002	必須項目 '{0}' が入力されていません。	Validation	Error	必須入力チェックエラー
+VALID003	'{0}' の形式が正しくありません。	Validation	Warning	形式チェック警告

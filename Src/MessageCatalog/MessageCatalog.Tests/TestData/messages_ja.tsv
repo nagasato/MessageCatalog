@@ -1,0 +1,4 @@
+Id	Text	Category	Severity	Description
+TEST001	テストメッセージ1	Test	Information	テスト用メッセージ1
+TEST002	パラメーター '{0}' のテスト	Test	Warning	
+TEST003	エラーテスト	Test	Error	

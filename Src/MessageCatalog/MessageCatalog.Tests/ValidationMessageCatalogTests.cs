@@ -8,7 +8,7 @@ public class ValidationMessageCatalogTests
 
     public ValidationMessageCatalogTests()
     {
-        _validationMessageCatalog = new ValidationMessageCatalog("TestData/Validation_messages.json");
+        _validationMessageCatalog = new ValidationMessageCatalog("TestData/Validation_messages.tsv");
     }
 
     [Fact]
@@ -25,10 +25,10 @@ public class ValidationMessageCatalogTests
         var message = _validationMessageCatalog.VALID001;
 
         // Assert
-        Assert.Equal("入力値が正しく検証されました。", message.Text);
+        Assert.Equal("Input has been validated successfully.", message.Text);
         Assert.Equal(ValidationMessageCategory.Validation, message.Category);
         Assert.Equal(ValidationMessageSeverity.Information, message.Severity);
-        Assert.Equal("検証成功時のメッセージ", message.Description);
+        Assert.Equal("Success message for validation", message.Description);
     }
 
     [Fact]
@@ -41,6 +41,6 @@ public class ValidationMessageCatalogTests
         var result = message.ToString();
 
         // Assert
-        Assert.Equal("入力値が正しく検証されました。", result);
+        Assert.Equal("Input has been validated successfully.", result);
     }
 }

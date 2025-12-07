@@ -27,10 +27,10 @@ public class MessageCatalogTests
         var message = _messageCatalog.TEST001;
 
         // Assert
-        Assert.Equal("テストメッセージ1", message.Text);
+        Assert.Equal("Test message 1", message.Text);
         Assert.Equal(DefaultMessageCategory.Test, message.Category);
         Assert.Equal(DefaultMessageSeverity.Information, message.Severity);
-        Assert.Equal("テスト用メッセージ1", message.Description);
+        Assert.Equal("Test message for testing 1", message.Description);
     }
 
     [Fact]
@@ -40,10 +40,10 @@ public class MessageCatalogTests
         var message = _messageCatalog.TEST002;
 
         // Act
-        var formatted = message.Format("テスト値");
+        var formatted = message.Format("testValue");
 
         // Assert
-        Assert.Equal("パラメーター 'テスト値' のテスト", formatted);
+        Assert.Equal("Test for parameter 'testValue'", formatted);
         Assert.Equal(DefaultMessageCategory.Test, message.Category);
         Assert.Equal(DefaultMessageSeverity.Warning, message.Severity);
     }
@@ -55,7 +55,7 @@ public class MessageCatalogTests
         var message = _messageCatalog.TEST003;
 
         // Assert
-        Assert.Equal("エラーテスト", message.Text);
+        Assert.Equal("Error test", message.Text);
         Assert.Equal(DefaultMessageCategory.Test, message.Category);
         Assert.Equal(DefaultMessageSeverity.Error, message.Severity);
         Assert.Equal(string.Empty, message.Description);
@@ -71,7 +71,7 @@ public class MessageCatalogTests
         var result = message.ToString();
 
         // Assert
-        Assert.Equal("テストメッセージ1", result);
+        Assert.Equal("Test message 1", result);
     }
 
     [Fact]
@@ -81,10 +81,10 @@ public class MessageCatalogTests
         var message = _messageCatalog.TEST002;
 
         // Act
-        var formatted = message.Format("値1");
+        var formatted = message.Format("value1");
 
         // Assert
-        Assert.Equal("パラメーター '値1' のテスト", formatted);
+        Assert.Equal("Test for parameter 'value1'", formatted);
     }
 
     [Theory]

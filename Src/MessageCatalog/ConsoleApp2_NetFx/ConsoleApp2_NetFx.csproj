@@ -50,6 +50,12 @@
     <None Include="App.config" />
     <AdditionalFiles Include="messages.tsv" />
     <AdditionalFiles Include="Validation_messages.tsv" />
+    <None Include="messages_ja.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Validation_messages_ja.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageCatalog.SourceGenerator\MessageCatalog.SourceGenerator.csproj">

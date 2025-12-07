@@ -1,9 +1,9 @@
 Id	Text	Category	Severity	Description
-INFO001	処理が正常に完了しました。	None	Information	
-INFO002	ユーザー '{0}' の登録が完了しました。	User	Information	ユーザー登録時の成功メッセージ
-WARN001	ファイル '{0}' が見つかりません。	File	Warning	ファイル読込時のエラーメッセージ
-WARN002	データが {0} 日以上更新されていません。	Database	Warning	1
-ERR001	入力値が不正です: {0}	Input	Error	入力エラー時のメッセージ
-ERR002	データベース '{0}' への接続に失敗しました。	Database	Error	データベース接続確立時のエラーメッセージ
-FATAL001	システムエラーが発生しました。エラーコード: {0}	System	Fatal	回復不能エラーのメッセージ
-FATAL002	回復不能エラーが発生しました。	System	Fatal	回復不能エラーのメッセージ
+INFO001	Process completed successfully.	None	Information	
+INFO002	User '{0}' has been registered.	User	Information	Success message for user registration
+WARN001	File '{0}' not found.	File	Warning	Error message when reading file
+WARN002	Data has not been updated for {0} days or more.	Database	Warning	1
+ERR001	Invalid input: {0}	Input	Error	Message for input errors
+ERR002	Failed to connect to database '{0}'.	Database	Error	Error message when establishing database connection
+FATAL001	System error occurred. Error code: {0}	System	Fatal	Message for unrecoverable errors
+FATAL002	An unrecoverable error has occurred.	System	Fatal	Message for unrecoverable errors

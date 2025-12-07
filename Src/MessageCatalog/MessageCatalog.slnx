@@ -2,6 +2,7 @@
   <Folder Name="/Doc/">
     <File Path="../../LICENSE.txt" />
     <File Path="../../README.md" />
+    <File Path="../../README_ja.md" />
   </Folder>
   <Project Path="ConsoleApp1/ConsoleApp1.csproj" />
   <Project Path="ConsoleApp2_NetFx/ConsoleApp2_NetFx.csproj" Id="7df94512-a039-401e-b434-201dc238b6d1" />
